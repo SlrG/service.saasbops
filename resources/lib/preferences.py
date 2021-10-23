@@ -20,7 +20,7 @@ class Preferences():
     def reset(self, ) -> None:
         self._storage = {}
 
-    def get(self, show:int, season:int, episode:int) -> Optional[Dict]:
+    def get(self, show:str, season:int, episode:int) -> Optional[Dict]:
         # Strings to allow for storing as JSON (easier debugging than binary formats)
         show_str = str(show)
 
@@ -35,7 +35,7 @@ class Preferences():
                     pass
 
 
-    def set(self, show:int, season:int, episode:int, info:Any) -> None:
+    def set(self, show:str, season:int, episode:int, info:Any) -> None:
         # Strings to allow for storing as JSON (easier debugging than binary formats)
         show = str(show)
         season = str(season)

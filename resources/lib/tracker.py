@@ -2,6 +2,7 @@ import logging
 from typing import Optional
 
 import xbmcaddon
+import os
 
 from .kodi_rpc import get_item_info, get_properties
 from .periodic_updater import PeriodicUpdater
@@ -81,17 +82,29 @@ class Tracker():
         logger.debug("--> Update item")
 
         item_info = get_item_info()
-        if item_info["type"] != "episode":
-            logger.debug("Not an episode")
+        item_type = item_info["type"]
+
+        if item_type != "episode" and item_type != "unknown":
+            logger.debug("Not an episode: %s", item_type)
             return
 
         try:
-            show_id = item_info["tvshowid"]
-            season = item_info["season"]
-            episode = item_info["episode"]
+            file = item_info["file"]
 
-            logger.debug("show: %d, season:%d, episode:%d",
-                         show_id, season, episode)
+            filename = os.path.basename(file)
+            path = os.path.dirname(file)
+
+            if item_type == "episode":
+                show_id = item_info["tvshowid"]
+                season = item_info["season"]
+                episode = item_info["episode"]
+            else:
+                show_id = path
+                season = 1
+                episode = 1
+
+            logger.debug("path: %s, filename: %s, show: %s, season:%d, episode:%d",
+                         path, filename, show_id, season, episode)
 
             item_props = get_properties()
             current_audio = self._get_audio(item_props)

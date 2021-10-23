@@ -64,7 +64,7 @@ def get_item_info():
                                            "episode",
                                            "showtitle",
                                         #    "thumbnail",
-                                        #    "file",
+                                            "file",
                                         #    "resume",
                                         #    "artistid",
                                         #    "albumid",
