@@ -109,7 +109,10 @@ class Tracker():
             item_props = get_properties()
             current_audio = self._get_audio(item_props)
             current_subtitle = self._get_subtitle(item_props)
+            current_percentage = item_props["percentage"]
 
+            logger.debug(
+				"percentage: %.1f", current_percentage)
             logger.debug(
                 "audio: %d, %s, %s", current_audio["index"], current_audio["language"], current_audio["name"])
             logger.debug(
@@ -152,7 +155,7 @@ class Tracker():
                         if stream is not None and self.set_subtitle_stream:
                             self.set_subtitle_stream(enabled, stream)
 
-            if not initial:
+            if not initial and current_percentage > 2:
                 # Check for changes and store if different cause it is what the user specified
                 if not same_audio(self.audio, current_audio) or not same_subtitle(self.subtitle, current_subtitle):
                     logger.debug("same_audio: %s\n    %s\n    %s", same_audio(

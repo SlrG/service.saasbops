@@ -134,7 +134,7 @@ def get_properties():
                                                 #  "partymode",
                                                 #  "speed",
                                                 #  "time",
-                                                #  "percentage",
+                                                 "percentage",
                                                 #  "totaltime",
                                                 #  "playlistid",
                                                  "position",
